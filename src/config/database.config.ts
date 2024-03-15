@@ -6,7 +6,7 @@ export const databaseSettings = (configService: ConfigService): TypeOrmModuleOpt
 
   const commonOptions: TypeOrmModuleOptions = {
     type: 'mysql',
-    host: configService.get<string>('DATABASE_HOST', 'localhost'),
+    host: configService.get<string>('DATABASE_HOST', 'mysql'),
     port: configService.get<number>('DATABASE_PORT', 3306),
     username: configService.get<string>('DATABASE_USER', 'root'),
     password: configService.get<string>('DATABASE_PASSWORD', '1234'),
