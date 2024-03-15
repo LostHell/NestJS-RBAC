@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { databaseSettings } from './config';
+import { UserModule } from './modules/user/user.module';
 
 @Module({
   imports: [
@@ -11,6 +12,7 @@ import { databaseSettings } from './config';
       inject: [ConfigService], // Inject the ConfigService
       useFactory: (configService: ConfigService) => databaseSettings(configService), // Use the ConfigService to pass configuration values
     }),
+    UserModule,
   ],
   controllers: [],
   providers: [],
