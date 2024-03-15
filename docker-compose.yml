@@ -1,0 +1,41 @@
+version: "3.9"
+
+services:
+
+  server-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: always
+    container_name: server-app
+    ports:
+      - "4200:4200"
+    volumes:
+      - ./:/app
+    command: npm run start:dev
+
+  phpmyadmin:
+    image: phpmyadmin
+    restart: always
+    container_name: php-my-admin
+    ports:
+      - "8081:80"
+    depends_on:
+      - mysql
+    environment:
+      PMA_HOST: mysql
+
+  mysql:
+    image: mysql:8.0
+    restart: always
+    container_name: db
+    volumes:
+      - db_data:/var/lib/mysql
+    #      - ./easy-menu.sql:/docker-entrypoint-initdb.d/easy-menu.sql
+    environment:
+      MYSQL_ROOT_PASSWORD: 1234
+      MYSQL_DATABASE: monitoring
+      MYSQL_PASSWORD: 1234
+
+volumes:
+  db_data: {}
